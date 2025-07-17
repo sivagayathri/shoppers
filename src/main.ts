@@ -10,6 +10,8 @@ async function bootstrap() {
       options: {
         host: 'localhost',
         port: 6379,
+        retryAttempts: 5,
+        retryDelay: 3000,
       },
     },
   );

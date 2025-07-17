@@ -8,7 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @MessagePattern('createUser')
+  @MessagePattern('create-user')
   create(@Payload() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
