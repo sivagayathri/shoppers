@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Param } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,7 +18,7 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @MessagePattern('findOneUser')
+  @MessagePattern('get-user')
   findOne(@Payload() id: number) {
     return this.userService.findOne(id);
   }

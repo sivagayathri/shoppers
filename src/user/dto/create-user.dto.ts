@@ -1,5 +1,10 @@
+import { Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsInt, IsString } from 'class-validator';
+import { HydratedDocument } from 'mongoose';
 
+export type CatDocument = HydratedDocument<CreateUserDto>;
+
+@Schema()
 export class CreateUserDto {
   @IsInt()
   id: number;
@@ -13,3 +18,5 @@ export class CreateUserDto {
   @IsString()
   password: string;
 }
+
+export const userSchema = SchemaFactory.createForClass(CreateUserDto);
