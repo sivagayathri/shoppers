@@ -3,12 +3,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { User } from './schema/user.schema';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectModel(CreateUserDto.name) private userModel: Model<CreateUserDto>,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   create(createUserDto: CreateUserDto) {
     const newUser = new this.userModel(createUserDto);
@@ -20,7 +19,7 @@ export class UserService {
   }
 
   findOne(id: number) {
-    const user = this.userModel.findById(id);
+    const user = this.userModel.findOne({ id });
     return user;
   }
 
