@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -14,8 +14,11 @@ export class UserService {
     return newUser.save();
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async signIn(email: string) {
+    const user = await this.userModel.findOne({
+      email: email,
+    });
+    return user;
   }
 
   findOne(id: number) {

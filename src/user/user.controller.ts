@@ -13,9 +13,9 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @MessagePattern('findAllUser')
-  findAll() {
-    return this.userService.findAll();
+  @MessagePattern('login')
+  signIn(username: string) {
+    return this.userService.signIn(username);
   }
 
   @MessagePattern('get-user')
