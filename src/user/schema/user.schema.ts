@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsOptional } from 'class-validator';
 import { Document } from 'mongoose';
 
-export type UserDocument = User & Document;
+export type UserDocument = Customer & Document;
 @Schema()
 class Address {
   @Prop({ required: false })
@@ -23,7 +23,7 @@ class Address {
 }
 
 @Schema()
-export class User {
+export class Customer {
   @Prop({ required: true, unique: true })
   id: number;
 
@@ -43,4 +43,4 @@ export class User {
   address?: Address;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(Customer);
