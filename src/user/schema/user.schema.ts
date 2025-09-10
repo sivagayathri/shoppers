@@ -43,4 +43,4 @@ export class Customer {
   address?: Address;
 }
 
-export const UserSchema = SchemaFactory.createForClass(Customer);
+export const CustomerSchema = SchemaFactory.createForClass(Customer);
