@@ -20,7 +20,7 @@ export class UserService {
 
   createAdmin(createAdminDto: CreateAdminDto) {
     const create = new this.adminModel(createAdminDto);
-    return create.save;
+    return create.save();
   }
 
   async signIn(email: string) {
