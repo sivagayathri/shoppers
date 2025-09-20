@@ -1,7 +1,11 @@
 import { Controller, Param } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UserService } from './user.service';
-import { CreateAdminDto, CreateUserDto } from './dto/create-user.dto';
+import {
+  AdminLogin,
+  CreateAdminDto,
+  CreateUserDto,
+} from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller()
@@ -36,5 +40,10 @@ export class UserController {
   @MessagePattern('removeUser')
   remove(@Payload() id: number) {
     return this.userService.remove(id);
+  }
+
+  @MessagePattern('admin-login')
+  adminSignIn(adminLoginInput: AdminLogin) {
+    return this.userService.adminSignIn(adminLoginInput);
   }
 }
