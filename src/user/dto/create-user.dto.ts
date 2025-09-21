@@ -65,3 +65,23 @@ export class AdminLogin {
   @IsString()
   password: string;
 }
+
+export class CreateProductDto {
+  @IsString()
+  sku: string;
+
+  @IsString()
+  name: string;
+
+  @IsString()
+  description: string;
+
+  @IsString()
+  category: string;
+
+  @IsInt()
+  price: number;
+
+  @IsInt()
+  stock: number;
+}

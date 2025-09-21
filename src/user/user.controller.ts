@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import {
   AdminLogin,
   CreateAdminDto,
+  CreateProductDto,
   CreateUserDto,
 } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -45,5 +46,10 @@ export class UserController {
   @MessagePattern('admin-login')
   adminSignIn(adminLoginInput: AdminLogin) {
     return this.userService.adminSignIn(adminLoginInput);
+  }
+
+  @MessagePattern('add-stock')
+  adminProductAddition(productDetails: CreateProductDto[]) {
+    return this.userService.adminProductAddition(productDetails);
   }
 }
