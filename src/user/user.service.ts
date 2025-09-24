@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import {
   AdminLogin,
   CreateAdminDto,
-  CreateProductDto,
   CreateUserDto,
 } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -72,10 +71,5 @@ export class UserService {
     }
 
     return admin;
-  }
-
-  async adminProductAddition(productDetails: CreateProductDto[]) {
-    
-    
   }
 }

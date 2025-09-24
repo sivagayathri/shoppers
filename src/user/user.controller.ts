@@ -47,9 +47,4 @@ export class UserController {
   adminSignIn(adminLoginInput: AdminLogin) {
     return this.userService.adminSignIn(adminLoginInput);
   }
-
-  @MessagePattern('add-stock')
-  adminProductAddition(productDetails: CreateProductDto[]) {
-    return this.userService.adminProductAddition(productDetails);
-  }
 }
