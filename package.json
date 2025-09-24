@@ -31,6 +31,7 @@
     "@nestjs/swagger": "^11.2.0",
     "bcryptjs": "^3.0.2",
     "class-validator": "^0.14.2",
+    "dotenv": "^17.2.2",
     "ioredis": "^5.6.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1",
