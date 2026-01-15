@@ -3,6 +3,7 @@ import {
   AdminLogin,
   CreateAdminDto,
   CreateUserDto,
+  SignInDto,
 } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -19,7 +20,11 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const newUser = new this.userModel(createUserDto);
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    const newUser = new this.userModel({
+      ...createUserDto,
+      password: hashedPassword,
+    });
     return newUser.save();
   }
 
@@ -32,10 +37,24 @@ export class UserService {
     return create.save();
   }
 
-  async signIn(email: string) {
+  async signIn(signInDto: SignInDto) {
     const user = await this.userModel.findOne({
-      email: email,
+      email: signInDto.email,
     });
+
+    if (!user) {
+      return { error: 'User not found' };
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      signInDto.password,
+      user.password,
+    );
+
+    if (!isPasswordValid) {
+      return { error: 'Invalid credentials' };
+    }
+
     return user;
   }
 
@@ -45,11 +64,17 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    const user = await this.userModel.findOneAndUpdate(
+      { id },
+      updateUserDto,
+      { new: true },
+    );
+    return user;
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} user`;
+    const user = await this.userModel.findOneAndDelete({ id });
+    return user ? { message: 'User deleted' } : { error: 'User not found' };
   }
 
   async adminSignIn(adminLoginInput: AdminLogin) {
@@ -58,16 +83,16 @@ export class UserService {
     });
 
     if (!admin) {
-      throw new Error('Admin not found');
+      return { error: 'Admin not found' };
     }
 
-    const password = await bcrypt.compare(
+    const isPasswordValid = await bcrypt.compare(
       adminLoginInput.password,
       admin.password,
     );
 
-    if (!password) {
-      throw new Error('Invalid credentials');
+    if (!isPasswordValid) {
+      return { error: 'Invalid credentials' };
     }
 
     return admin;

@@ -1,13 +1,14 @@
-import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { MessagePattern } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { SignInDto } from '../user/dto/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @MessagePattern('login')
-  signIn(signInDto: Record<string, any>) {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+  @MessagePattern('auth-login')
+  signIn(@Payload() signInDto: SignInDto) {
+    return this.authService.signIn(signInDto);
   }
 }

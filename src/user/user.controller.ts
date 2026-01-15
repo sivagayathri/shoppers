@@ -4,8 +4,8 @@ import { UserService } from './user.service';
 import {
   AdminLogin,
   CreateAdminDto,
-  CreateProductDto,
   CreateUserDto,
+  SignInDto,
 } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -24,8 +24,8 @@ export class UserController {
   }
 
   @MessagePattern('login')
-  signIn(username: string) {
-    return this.userService.signIn(username);
+  signIn(@Payload() signInDto: SignInDto) {
+    return this.userService.signIn(signInDto);
   }
 
   @MessagePattern('get-user')
@@ -44,7 +44,7 @@ export class UserController {
   }
 
   @MessagePattern('admin-login')
-  adminSignIn(adminLoginInput: AdminLogin) {
+  adminSignIn(@Payload() adminLoginInput: AdminLogin) {
     return this.userService.adminSignIn(adminLoginInput);
   }
 }
