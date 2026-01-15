@@ -66,6 +66,14 @@ export class AdminLogin {
   password: string;
 }
 
+export class SignInDto {
+  @IsString()
+  email: string;
+
+  @IsString()
+  password: string;
+}
+
 export class CreateProductDto {
   @IsString()
   sku: string;
